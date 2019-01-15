@@ -43,5 +43,6 @@ public class Board {
         return myBoard;
 
     }
+    //I tried, do I need to do it any other way?
 
 }
