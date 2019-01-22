@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+
 public interface BoardReader {
-    public String toString();
+    int[][] readBoard();
+
 }

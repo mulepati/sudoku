@@ -4,12 +4,12 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 
-public class Board implements BoardReader{
+public class SDKBoardReader implements BoardReader{
 
     //this is an array of an int array that contains 9 int arrays.
     private int[][] arrayRows = new int[9][9];
 
-    public Board(String file) throws FileNotFoundException {
+    public SDKBoardReader(String file) throws FileNotFoundException {
         Scanner input = new Scanner(new File(file));
 
         //the variable x if for each row and increases every time a row is added to the arrayRows array.
@@ -32,14 +32,8 @@ public class Board implements BoardReader{
         }
     }
 
-    public String toString() {
-        StringBuilder myBoard = new StringBuilder();
-        //this for loop addeds each line of the array row on to a string to create the sudoku board.
-        for (int i = 0; i < arrayRows.length; i++) {
-            myBoard.append("\n" + Arrays.toString(arrayRows[i]));
-        }
-        return myBoard.toString();
 
+    public int[][] readBoard() {
+        return arrayRows;
     }
-
 }

@@ -4,8 +4,8 @@ import java.util.*;
 public class SudokuSolver {
     public static void main(String[] args) throws FileNotFoundException {
         //the file hard coded in.
-        BoardReader newBoard = BoardFactory.getBoard("sudoku.sdk");
-        BoardReader newBoard2 = BoardFactory.getBoard("puzzle.ss");
+        MainBoard newBoard = new MainBoard("sudoku.sdk");
+        MainBoard newBoard2 = new MainBoard("puzzle.ss");
         //the file location is not hard coded in.
 //        System.out.println("type file location :");
 //        String fileLocation = Scanner.nextLine();

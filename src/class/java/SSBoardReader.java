@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Arrays;
 
-public class Board2 implements BoardReader{
+public class SSBoardReader implements BoardReader {
     private int[][] arrayRows = new int[9][9];
 //    private int[][] arrayColumn = new int[9][9];
 //    private int[][] arrayGrid = new int[9][9];
 
-    public Board2(String file) throws FileNotFoundException {
+    public SSBoardReader(String file) throws FileNotFoundException {
         Scanner input = new Scanner(new File(file));
 
         int i = 0;
@@ -23,6 +23,7 @@ public class Board2 implements BoardReader{
                     arrayRows[i][x] = 0;
                     x++;
                 } else if(row[j] == '|'){
+                    //do nothing
                 } else if(row[j] == '-') {
                     containsDash = true;
                 }else {
@@ -38,13 +39,7 @@ public class Board2 implements BoardReader{
         }
     }
 
-    public String toString() {
-        StringBuilder myBoard = new StringBuilder();
-        //this for loop addeds each line of the array row on to a string to create the sudoku board.
-        for (int i = 0; i < arrayRows.length; i++) {
-            myBoard.append("\n" + Arrays.toString(arrayRows[i]));
-        }
-        return myBoard.toString();
-
+    public int[][] readBoard() {
+        return arrayRows;
     }
 }
