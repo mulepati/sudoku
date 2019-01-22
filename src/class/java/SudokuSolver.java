@@ -13,5 +13,9 @@ public class SudokuSolver {
         System.out.println(newBoard);
         System.out.println(newBoard2);
 
+        System.out.println(newBoard.isValid());
+
+        System.out.println(newBoard.isSolved());
+
     }
 }
