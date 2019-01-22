@@ -3,32 +3,38 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Arrays;
 
-
-public class Board implements BoardReader{
-
-    //this is an array of an int array that contains 9 int arrays.
+public class Board2 implements BoardReader{
     private int[][] arrayRows = new int[9][9];
+//    private int[][] arrayColumn = new int[9][9];
+//    private int[][] arrayGrid = new int[9][9];
 
-    public Board(String file) throws FileNotFoundException {
+    public Board2(String file) throws FileNotFoundException {
         Scanner input = new Scanner(new File(file));
 
-        //the variable x if for each row and increases every time a row is added to the arrayRows array.
         int i = 0;
         while(input.hasNextLine()) {
             char[] row;
-
+            int x = 0;
+            boolean containsDash = false;
             row = input.nextLine().toCharArray();
 
-            //this for loop is to create an array of integers that will be added to the arrayrow from the array of characters
             for (int j = 0; j < row.length; j++) {
-                if(row[j] == '.') {
-                    arrayRows[i][j] = 0;
-                } else {
-                    arrayRows[i][j] = Character.getNumericValue(row[j]);
+                if(row[j] == '.' && i < 10) {
+                    arrayRows[i][x] = 0;
+                    x++;
+                } else if(row[j] == '|'){
+                } else if(row[j] == '-') {
+                    containsDash = true;
+                }else {
+                    arrayRows[i][x] = Character.getNumericValue(row[j]);
+                    x++;
                 }
             }
-
             i++;
+
+            if(containsDash) {
+                i--;
+            }
         }
     }
 
@@ -41,5 +47,4 @@ public class Board implements BoardReader{
         return myBoard.toString();
 
     }
-
 }
