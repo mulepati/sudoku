@@ -43,42 +43,42 @@ public class MainBoard {
     }
 
     private boolean solvedRow() {
-        Map<Integer, Boolean> rowMap = new HashMap<Integer, Boolean>();
+        Set<Integer> rowSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i++) {
             for(int cell : boardRows[i]){
-                if(rowMap.containsKey(cell) && cell != 0){
-                    rowMap.put(cell, false);
+                if(rowSet.contains(cell) && cell != 0){
+                    rowSet.add(cell);
                     return false;
-                } else if(rowMap.containsKey(cell) && cell == 0){
-                    rowMap.put(cell, true);
+                } else if(rowSet.contains(cell) && cell == 0){
+                    rowSet.add(cell);
                     return false;
                 }else{
-                    rowMap.put(cell, true);
+                    rowSet.add(cell);
                 }
             }
-            rowMap.clear();
+            rowSet.clear();
         }
 
         return true;
     }
 
     private boolean solvedColumn() {
-        Map<Integer, Boolean> columnMap = new HashMap<Integer, Boolean>();
+        Set<Integer> columnSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if(columnMap.containsKey(boardRows[j][i]) && boardRows[j][i] != 0){
-                    columnMap.put(boardRows[j][i], false);
+                if(columnSet.contains(boardRows[j][i]) && boardRows[j][i] != 0){
+                    columnSet.add(boardRows[j][i]);
                     return false;
-                } else if(columnMap.containsKey(boardRows[j][i]) && boardRows[j][i] == 0){
-                    columnMap.put(boardRows[j][i], true);
+                } else if(columnSet.contains(boardRows[j][i]) && boardRows[j][i] == 0){
+                    columnSet.add(boardRows[j][i]);
                     return false;
                 }else{
-                    columnMap.put(boardRows[j][i], true);
+                    columnSet.add(boardRows[j][i]);
                 }
             }
-            columnMap.clear();
+            columnSet.clear();
         }
 
         return true;
@@ -86,25 +86,25 @@ public class MainBoard {
     }
 
     private boolean solvedGrid() {
-        Map<Integer, Boolean> gridMap = new HashMap<Integer, Boolean>();
+        Set<Integer> gridSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i += 3) {
             for (int j = 0; j < 9; j += 3) {
                 for (int k = 0; k < 3; k++) {
                     for (int l = 0; l < 3; l++) {
-                        if(gridMap.containsKey(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
+                        if(gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
                             return false;
-                        } else if(gridMap.containsKey(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
-                            gridMap.put(boardRows[i+k][j+l], true);
+                        } else if(gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
+                            gridSet.add(boardRows[i+k][j+l]);
                             return false;
                         } else {
-                            gridMap.put(boardRows[i+k][j+l], true);
+                            gridSet.add(boardRows[i+k][j+l]);
                         }
 
                     }
 
                 }
-                gridMap.clear();
+                gridSet.clear();
 
             }
 
@@ -114,64 +114,64 @@ public class MainBoard {
     }
 
     private boolean validRow(){
-        Map<Integer, Boolean> rowMap = new HashMap<Integer, Boolean>();
+        Set<Integer> rowSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i++) {
             for(int cell : boardRows[i]){
-                if(rowMap.containsKey(cell) && cell != 0){
-                    rowMap.put(cell, false);
+                if(rowSet.contains(cell) && cell != 0){
+                    rowSet.add(cell);
                     return false;
-                } else if(rowMap.containsKey(cell) && cell == 0){
-                    rowMap.put(cell, true);
+                } else if(rowSet.contains(cell) && cell == 0){
+                    rowSet.add(cell);
                 }else{
-                    rowMap.put(cell, true);
+                    rowSet.add(cell);
                 }
             }
-            rowMap.clear();
+            rowSet.clear();
         }
 
         return true;
     }
 
     private boolean validColumn() {
-        Map<Integer, Boolean> columnMap = new HashMap<Integer, Boolean>();
+        Set<Integer> columnSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if(columnMap.containsKey(boardRows[j][i]) && boardRows[j][i] != 0){
-                    columnMap.put(boardRows[j][i], false);
+                if(columnSet.contains(boardRows[j][i]) && boardRows[j][i] != 0){
+                    columnSet.add(boardRows[j][i]);
                     return false;
-                } else if(columnMap.containsKey(boardRows[j][i]) && boardRows[j][i] == 0){
-                    columnMap.put(boardRows[j][i], true);
+                } else if(columnSet.contains(boardRows[j][i]) && boardRows[j][i] == 0){
+                    columnSet.add(boardRows[j][i]);
                 }else{
-                    columnMap.put(boardRows[j][i], true);
+                    columnSet.add(boardRows[j][i]);
                 }
             }
-            columnMap.clear();
+            columnSet.clear();
         }
 
         return true;
     }
 
     private boolean validGrid() {
-        Map<Integer, Boolean> gridMap = new HashMap<Integer, Boolean>();
+        Set<Integer> gridSet = new HashSet<Integer>();
 
         for (int i = 0; i < 9; i += 3) {
             for (int j = 0; j < 9; j += 3) {
                 for (int k = 0; k < 3; k++) {
                     for (int l = 0; l < 3; l++) {
-                        if(gridMap.containsKey(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
+                        if(gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
                             return false;
-                        } else if(gridMap.containsKey(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
-                            gridMap.put(boardRows[i+k][j+l], true);
+                        } else if(gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0){
+                            gridSet.add(boardRows[i+k][j+l]);
                         } else {
-                            gridMap.put(boardRows[i+k][j+l], true);
+                            gridSet.add(boardRows[i+k][j+l]);
                         }
 
                     }
 
                 }
-                gridMap.clear();
+                gridSet.clear();
 
             }
 
