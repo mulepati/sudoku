@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class SSBoardReader implements BoardReader {
     private int[][] arrayRows = new int[9][9];

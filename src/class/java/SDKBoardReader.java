@@ -1,10 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Arrays;
 
 
-public class SDKBoardReader implements BoardReader{
+public class SDKBoardReader implements BoardReader {
 
     //this is an array of an int array that contains 9 int arrays.
     private int[][] arrayRows = new int[9][9];
