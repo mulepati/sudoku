@@ -13,10 +13,11 @@ public class SudokuSolver {
         System.out.println(newBoard);
         System.out.println(newBoard2);
 
-        System.out.println(newBoard.isValid());
+        System.out.println(newBoard2.isValid(newBoard2.getBoard()));
 
-        System.out.println(newBoard.isSolved());
-
-
+        System.out.println(newBoard2.isSolved(newBoard2.getBoard()));
+        newBoard2.solve();
+        System.out.println(newBoard2.toString());
     }
+
 }

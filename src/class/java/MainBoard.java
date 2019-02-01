@@ -1,6 +1,6 @@
 import java.io.FileNotFoundException;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class MainBoard {
     private int[][] boardRows;
@@ -10,15 +10,23 @@ public class MainBoard {
         this.boardRows = newBoard.readBoard();
     }
 
-    public boolean isValid() {
-        return validRow() && validColumn() && validGrid();
+    public boolean isValid(int[][] board) {
+        return validRow(board) && validColumn(board) && validGrid(board);
     }
 
-    public boolean isSolved() {
+    public boolean isSolved(int[][] board) {
 
-        return solvedRow() && isValid();
+        return filledRow(board) && isValid(board);
     }
+
+    public int[][] getBoard() {
+        return boardRows;
+    }
+
     public String toString() {
+        if(boardRows == null){
+            return "invalid board";
+        }
         StringBuilder myBoard = new StringBuilder();
         //this for loop addeds each line of the array row on to a string to create the sudoku board.
         for (int[] row : boardRows) {
@@ -33,30 +41,29 @@ public class MainBoard {
 
     }
 
-    private boolean solvedRow() {
-        Set<Integer> rowSet = new HashSet<Integer>();
+    /*Recursive Backtracking Solver, this method just solves the board changing the object into a solved board if the
+    board that was called in is valid. I made this function inside the MainBoard class because I have all my other
+    functions avaliable to me in this class. I could have added a new class to solve everything which would have been
+    easy enough but I would then have to rewrite additional code and repeat other code.*/
+    public void solve(){
+        boardRows = solveBoard(boardRows);
+    }
+
+    private boolean filledRow(int[][] boardRows) {
 
         for (int i = 0; i < 9; i++) {
             for (int cell : boardRows[i]){
-                if (rowSet.contains(cell) && cell != 0){
-                    rowSet.add(cell);
-                    return false;
-                } else if (rowSet.contains(cell) && cell == 0){
-                    rowSet.add(cell);
+                if (cell == 0) {
                     return false;
                 }
-                rowSet.add(cell);
-
             }
-            rowSet.clear();
         }
 
         return true;
     }
 
-
-    private boolean validRow(){
-        Set<Integer> rowSet = new HashSet<Integer>();
+    private boolean validRow(int[][] boardRows){
+        Set<Integer> rowSet = new HashSet<>();
 
         for (int i = 0; i < 9; i++) {
             for (int cell : boardRows[i]) {
@@ -75,8 +82,8 @@ public class MainBoard {
         return true;
     }
 
-    private boolean validColumn() {
-        Set<Integer> columnSet = new HashSet<Integer>();
+    private boolean validColumn(int[][] boardRows) {
+        Set<Integer> columnSet = new HashSet<>();
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -95,8 +102,8 @@ public class MainBoard {
         return true;
     }
 
-    private boolean validGrid() {
-        Set<Integer> gridSet = new HashSet<Integer>();
+    private boolean validGrid(int[][] boardRows) {
+        Set<Integer> gridSet = new HashSet<>();
 
         for (int i = 0; i < 9; i += 3) {
             for (int j = 0; j < 9; j += 3) {
@@ -104,7 +111,7 @@ public class MainBoard {
                     for (int l = 0; l < 3; l++) {
                         if (gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0) {
                             return false;
-                        } else if (gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] != 0) {
+                        } else if (gridSet.contains(boardRows[i+k][j+l]) && boardRows[i+k][j+l] == 0) {
                             gridSet.add(boardRows[i+k][j+l]);
                         } else {
                             gridSet.add(boardRows[i+k][j+l]);
@@ -121,6 +128,60 @@ public class MainBoard {
 
         return true;
 
+    }
+
+    private List<int[][]> getNeighbors(int[][] board) {
+        List<int[][]> boards = new ArrayList<>();
+        int[][] newBoard = newBoard(board);
+
+        for (int i = 0; i < newBoard.length; i++) {
+            for (int j = 0; j < newBoard[i].length; j++) {
+                for (int k = 1; k < 10; k++) {
+                    if (newBoard[i][j] == 0 && !boards.contains(addNum(newBoard, i, j, k)) && addNum(newBoard, i, j, k) != null) {
+                        boards.add(addNum(newBoard, i, j, k));
+                    }
+                }
+            }
+
+        }
+
+        return boards;
+
+
+    }
+
+    private int[][] addNum(int[][] board, int x, int y, int z) {
+        int[][] newBoard = newBoard(board);
+        newBoard[x][y] = z;
+        if(isValid(newBoard)) {
+            return newBoard;
+        }
+
+        return null;
+    }
+
+    private int[][] solveBoard(int[][] board) {
+        if(isSolved(board)) {
+            return board;
+        } else {
+            for(int[][] boards: getNeighbors(board)) {
+                 int[][] result = solveBoard(boards);
+                 if(result != null) {
+                     return result;
+                 }
+            }
+
+        }
+        return null;
+    }
+
+    private int[][] newBoard(int[][] board) {
+        int[][] newBoard = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            newBoard[i] = Arrays.copyOf(board[i], board[i].length);
+        }
+
+        return newBoard;
     }
 
 
