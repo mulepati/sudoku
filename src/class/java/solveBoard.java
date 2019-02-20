@@ -1,11 +1,12 @@
-
 import java.util.*;
 
+public abstract class solveBoard {
 
-public class solveBoard {
     private int[][] board;
 
-    public solveBoard(int[][] newBoard){
+    abstract int[][] solveBoard(int[][] board2);
+
+    public solveBoard(int[][] newBoard) {
         board = newBoard;
     }
 
@@ -16,14 +17,22 @@ public class solveBoard {
         return filledRow() && isValid();
     }
 
-    /*I moved the getNeighbors() fuction into a new class because it was a static method that did not seem ok.
-    * Once moved to a new class it operates like any other field in a class function instead of being bad style
-    * the getNeighbor fuction returns a list of all boards where when you add a new number the board is still
-    * valid. */
+    private boolean filledRow() {
+
+        for (int i = 0; i < 9; i++) {
+            for (int cell : board[i]){
+                if (cell == 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     public List<int[][]> getNeighbors() {
         List<int[][]> boards = new ArrayList<>();
-        int[][] newBoard = newBoard(board);
+        int[][] newBoard = newBoard(getBoard());
 
         for (int row = 0; row < newBoard.length; row++) {
             for (int col = 0; col < newBoard[row].length; col++) {
@@ -45,26 +54,12 @@ public class solveBoard {
         int[][] newBoard = newBoard(board);
         newBoard[x][y] = z;
 
-        solveBoard newBoard2 = new solveBoard(newBoard);
+        RecursiveSolver newBoard2 = new RecursiveSolver(newBoard);
         if(newBoard2.isValid()) {
             return newBoard;
         }
 
         return null;
-    }
-
-
-    private boolean filledRow() {
-
-        for (int i = 0; i < 9; i++) {
-            for (int cell : board[i]){
-                if (cell == 0) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     private boolean validRow(){
@@ -135,8 +130,11 @@ public class solveBoard {
 
     }
 
+    public int[][] getBoard() {
+        return board;
+    }
 
-    private int[][] newBoard(int[][] board) {
+    public int[][] newBoard(int[][] board) {
         int[][] newBoard = new int[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {
             newBoard[i] = Arrays.copyOf(board[i], board[i].length);
