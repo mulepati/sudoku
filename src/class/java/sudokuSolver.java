@@ -14,36 +14,28 @@ public class sudokuSolver {
 
         System.out.println(newBoard2);
         System.out.println();
-        System.out.println("Is board valid: " + newBoard2.isValid());
 
-        System.out.println("Is board solved: " +newBoard2.isSolved());
-
-        newBoard2.recursiveSolve();
-        System.out.println("solved with recursives:");
-        System.out.println(newBoard2);
-
-        System.out.println("Is board solved: " + newBoard2.isSolved());
 
         long t1 = System.nanoTime();
-        System.out.println("Prints out original:");
-        System.out.println(newBoard);
+        newBoard2.recursiveSolve();
         long t2 = System.nanoTime();
-        System.out.println("Time: " + String.valueOf(t2 - t1));
+        System.out.println("solved with recursives:");
+        System.out.println(newBoard2);
+        System.out.println("Time Recursive: " + String.valueOf(t2 - t1));
 
         System.out.println();
 
         long t3 = System.nanoTime();
         newBoard.dFSSolver();
+        long t4 = System.nanoTime();
         System.out.println("solved with DFS:");
         System.out.println(newBoard);
-        long t4 = System.nanoTime();
-        System.out.println("Time: " + String.valueOf(t4 - t3));
+        System.out.println("Time DFS: " + String.valueOf(t4 - t3));
 
-        /*The recursive is way faster for my code incomparation to DFS, I think that
-        * DFS was slower because it has to store each of how it changes from stacks to list
-        * and list to stacks to it might affect the time, I don't quite understand however because both
-        * the DFS and recursive should be using O( n * m) my code however shows that it is way faster to
-        * to use recursive*/
+        /*The DFS is faster, I believe that because of the use of stacks
+        * while DFS has time complexity of O(e + v) recursive however has a time
+        * completixy of O(n * m) so one has a better time complex which is why it might be faster.
+        * That is the only thing I can think of.*/
     }
 
 }
