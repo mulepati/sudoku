@@ -1,2 +1,3 @@
-stuff
-stff
+Utilized both recursive backTracking and iteration to find 
+a solution to an unsolved Sudoku Board.
+Board is stored utilizing a tree with a get Neighbors function.
